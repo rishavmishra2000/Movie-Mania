@@ -42,3 +42,8 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
+.navigation {
+  margin-bottom: 20px;
+  padding: 10px;
+}

@@ -13,19 +13,22 @@ const MovieList = ({ type, title, emoji }) => {
     by: "default",
     order: "asc",
   });
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   const fetchData = async () => {
     const API_KEY = "8b5e629a52ed58d12f04964ae7c5e610";
-    const url = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}`;
+    const url = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&page=${page}`;
     const response = await fetch(url);
     const data = await response.json();
     setMovies(data.results);
+    setTotalPages(data.total_pages);
     setFilterMovies(data.results);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [type, page]);
 
   useEffect(() => {
     if (sort.by !== "default") {
@@ -52,6 +55,18 @@ const MovieList = ({ type, title, emoji }) => {
     //   return { ...prev, [name]: value };
     // });
     console.log(sort);
+  };
+
+  const handlePrevClick = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
   };
 
   return (
@@ -90,6 +105,23 @@ const MovieList = ({ type, title, emoji }) => {
           </select>
         </div>
       </header>
+      <div className="align_center navigation">
+        <button
+          className="button"
+          onClick={handlePrevClick}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <span>1 - {totalPages}</span>
+        <button
+          className="button"
+          onClick={handleNextClick}
+          disabled={page === totalPages}
+        >
+          Next
+        </button>
+      </div>
       <div className="movie_cards">
         {filterMovies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />

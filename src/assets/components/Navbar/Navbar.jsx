@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import "./Navbar.css";
 // import DarkMode from "../DarkMode/DarkMode";
@@ -13,16 +14,16 @@ const Navbar = () => {
       <h2 className="nav_header">Movie Mania</h2>
       <div className="align_center nav_header_links">
         {/* <DarkMode /> */}
-        <a href="#popular" className="align_center">
+        <NavLink to="/" className="align_center">
           Popular <img src={Fire} alt="fire_emoji" className="navbar_emoji" />
-        </a>
-        <a href="#top_rated" className="align_center">
+        </NavLink>
+        <NavLink to="/top_rated" className="align_center">
           Top Rated <img src={Star} alt="star_emoji" className="navbar_emoji" />
-        </a>
-        <a href="#upcoming" className="align_center">
+        </NavLink>
+        <NavLink to="/upcoming" className="align_center">
           Upcoming{" "}
           <img src={Party} alt="party_face_emoji" className="navbar_emoji" />
-        </a>
+        </NavLink>
       </div>
     </nav>
   );
